@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions List</title>
+</head>
+<body>
+    <h1>Create Transaction</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+    <h2>Transactions List</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Transaction ID</th>
+                <th>Account name</th>
+                <th>Transaction date</th>
+                <th>Transaction description</th>
+                <th>Category</th>
+                <th>Value type</th>
+                <th>Currency name</th>
+                <th>Value</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.pk }}</td>
+                    <td>{{ item.account }}</td>
+                    <td>{{ item.transaction_date }}</td>
+                    <td>{{ item.transaction_description }}</td>
+                    <td>{{ item.category }}</td>
+                    <td>{{ item.value_type }}</td>
+                    <td>{{ item.currency }}</td>
+                    <td>{{ item.value }}</td>
+                    <td>
+                        <a href="{% url 'transaction_update' item.pk %}">Edit</a> | 
+                        <a href="{% url 'transaction_delete' item.pk %}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

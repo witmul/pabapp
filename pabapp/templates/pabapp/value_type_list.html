@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Value Type</title>
+</head>
+<body>
+    <h1>Create Value Type</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+    <h2>Value Type List</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Value Type ID</th>
+                <th>Value Type name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.pk }}</td>
+                    <td>{{ item.value_type_name }}</td>
+                    <td>
+                        <a href="{% url 'value_type_update' item.pk %}">Edit</a> | 
+                        <a href="{% url 'value_type_delete' item.pk %}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category List</title>
+</head>
+<body>
+    <h1>Create Category</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+    <h2>Category List</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Category ID</th>
+                <th>Category name</th>
+                <th>Category group ID</th>
+                <th>Category group name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.pk }}</td>
+                    <td>{{ item.category_name }}</td>
+                    <td>{{ item.category_group.pk }}</td>
+                    <td>{{ item.category_group.category_group_name }}</td>
+                    <td>
+                        <a href="{% url 'category_update' item.pk %}">Edit</a> | 
+                        <a href="{% url 'category_delete' item.pk %}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
